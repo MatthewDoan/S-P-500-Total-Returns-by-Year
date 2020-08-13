@@ -19,7 +19,7 @@ const { Range } = Slider;
 
 var num = 0;
 
-class CustomizedRange extends React.Component {
+class CustomizedRange extends React.Component { 
 
   
   constructor(props) {
@@ -40,15 +40,15 @@ class CustomizedRange extends React.Component {
     this.setState({ upperBound: +e.target.value });
   };
 
-  onSliderChange = value => {
+  onSliderChange = value => { // This function runs functions when the slider is moved. 
     log(value);
     num=0
     this.setState({
       value,
     });
-  };
+  }; 
 
-  getValue(totalReturn){
+  getValue(totalReturn){ //Sums the Cumulative Column 
     num += parseFloat(totalReturn)
     return num
   }
@@ -58,12 +58,14 @@ class CustomizedRange extends React.Component {
     this.setState({ value: [lowerBound, upperBound] });
   };
 
-  render() {
+  render() { 
     return (
       <div>
-        <Range min={1926} max={2019} defaultValue={[1926, 2019]} marks={{ 1926: 1926,  2019: 2019 }} handle={handle} allowCross={false} value={this.state.value} onChange={this.onSliderChange} />
+        <Range min={1926} max={2019} defaultValue={[1926, 2019]} marks={{ 1926: 1926,  2019: 2019 }} handle={handle} allowCross={false} value={this.state.value} onChange={this.onSliderChange} /> 
+
+        <p align="center" font-weight="bold">S&P 500 Total Returns by Year</p>
         <TableContainer component={Paper}>
-          <Table size="fixed"align="center" aria-label="simple table" >
+          <Table size ="fixed"align="center" aria-label="simple table" >
       
         <TableHead>
           <TableRow>
@@ -73,7 +75,7 @@ class CustomizedRange extends React.Component {
           </TableRow>
         </TableHead>
         <TableBody>
-          {data.filter(data => data.year >= this.state.value[0] && data.year <= this.state.value[1]).reverse().map((arr, index) => (
+          {data.filter(data => data.year >= this.state.value[0] && data.year <= this.state.value[1]).reverse().map((arr, index) => ( // Why compare the data with what the slider values are set to in order to properly display the filtered results. 
             <TableRow key={index}>
               <TableCell component="th" scope="row">{arr.year}</TableCell>
               <TableCell>{arr.totalReturn}</TableCell>
@@ -92,8 +94,6 @@ class CustomizedRange extends React.Component {
 const useStyles = makeStyles({
   table: {
   },
-
-
 });
 
 
@@ -104,7 +104,7 @@ function log(value) {
 
 const Handle = Slider.Handle;
 
-const handle = props => {
+const handle = props => { //This function handles the tooltips when sliding the slider.
   const { value, dragging, index, ...restProps } = props;
   return (
     <Tooltip
